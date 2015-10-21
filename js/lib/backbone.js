@@ -515,7 +515,6 @@
           this.trigger('change:' + changes[i], this, current[changes[i]], options);
         }
       }
-
       // You might be wondering why there's a `while` loop here. Changes can
       // be recursively nested within `"change"` events.
       if (changing) return this;

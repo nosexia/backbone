@@ -1,48 +1,49 @@
 define([
+    'jquery',
     'underscore',
     'backbone'
-],function(_, backbone){
+],function($, _, backbone){
     var person = {
-        name: 'nose'
+        name: 'nose',
+        age: 23
     };
-    var MyModel = backbone.Model.extend({
-        //验证通过需要返回false
-        validate: function(attr, options){
-            if(attr.name == 'nose'){
-                return false;
-            }else{
-                return '参数不对';
-            }
-        }
-    });
+    var MyModel = backbone.Model;
 
     var MyView = backbone.View.extend({
         initialize: function(){
-            this.listenTo(this.model, 'change', this.render);
-            this.listenTo(this.model, 'invalid', this.invalid);         
+            this.listenTo(this.model, 'change:name', this.renderName);      //某个属性改变时，需要渲染
+            this.listenTo(this.model, 'change:age', this.renderAge);       
         },
-        render: function(){
-            console.log(this.model.toJSON());
+        renderName: function(){
+            console.log('变化name情况');
         },
-        invalid: function(){
-            console.log(arguments[1]);              //参数不对
-        }        
+        renderAge: function(age,age1,age3){
+            console.log('变化age情况');
+        } 
     });
 
     var myModel = new MyModel();
     var myView = new MyView({
         model: myModel
     });
-    myModel.set({'name': 'nose1'}, {validate:true});
+    
 
+    $(document).click(function(){
+        myModel.set(person);
+    });
+
+    $('.u-name').click(function(e){
+        person.name = new Date().getTime();  
+        e.stopPropagation();
+    });
+
+    $('.u-age').click(function(e){
+        person.age = new Date().getTime();
+        e.stopPropagation();
+    });
 });
 
-//接到模型数据后，
-//必须对模型数据进行验证，
-//1.myModel.set({'name': 'nose1'}, {validate:true});, 需要加入第三个参数{validate: true}
-//在Model中加入validate属性，对数据进行验证，通过了触发'trigger'事件， 否则触发 'invalid', 让触发的事件更加清楚
-//
-
+//监听模型里指定属性值变化
 
 
 
