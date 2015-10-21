@@ -2,26 +2,31 @@ define([
     'underscore',
     'backbone'
 ],function(_, backbone){
-    var SampleView = function(){
-
+    var person = {
+        name: 'nose'
     };
+    var MyModel = backbone.Model;
 
-    var SampleModel = function(){
-
-    };
-    var events = backbone.Events;
-
-    _.extend(SampleView.prototype, events);
-    _.extend(SampleModel.prototype, events);
-    var sampleView = new SampleView();
-    var sampleModel =new SampleModel();
-
-    sampleView.listenTo(sampleModel, 'custom_event', function(){
-        console.log('sampleView');
+    var MyView = backbone.View.extend({
+        initialize: function(){
+            this.model.on('change', this.render, this);
+        },
+        render: function(){
+            console.log(this.model.toJSON());
+        }        
     });
 
-    sampleModel.trigger('custom_event');
+    var myModel = new MyModel();
+    var myView = new MyView({
+        model: myModel
+    });
+    //myModel.trigger('change', person);
+    myModel.set(person);
+
+
+
 });
 
-//自定义SampleView类，events事件方法扩展SampleView.prototype
-//自定义SampleModel类， events事件方法扩展SampleModel.prototype
+//实现简单版，myModel, myView
+//myModel.set(person)       --->myModel.trigger('change', person)
+//this.model.on('change', this.render, this) 
