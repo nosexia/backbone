@@ -9,7 +9,9 @@ define([
 
     var MyView = backbone.View.extend({
         initialize: function(){
-            this.model.on('change', this.render, this);
+            //第三个参数this为this.render中的this
+            //this.model.on('change', this.render, this);
+            this.listenTo(this.model, 'change', this.render);
         },
         render: function(){
             console.log(this.model.toJSON());
@@ -20,13 +22,15 @@ define([
     var myView = new MyView({
         model: myModel
     });
-    //myModel.trigger('change', person);
     myModel.set(person);
-
-
 
 });
 
-//实现简单版，myModel, myView
-//myModel.set(person)       --->myModel.trigger('change', person)
-//this.model.on('change', this.render, this) 
+
+
+//this.model.on('change', this.render, this)  ==>this.listenTo(this.model, 'change', this.render);
+
+
+
+
+
