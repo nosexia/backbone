@@ -11,7 +11,7 @@ define([
 
     var MyView = backbone.View.extend({
         initialize: function(options){
-            this.listenTo(options.model, 'change', this.render);            //用options.model替换this.model
+            this.listenTo(this.model, 'change', this.render);            //用options.model替换this.model
         },
         render: function(){
             console.log('渲染所有');
@@ -25,21 +25,17 @@ define([
 
     myModel.set(person);
 
-
 });
 
-/*var View = Backbone.View = function(options) {
-    this.cid = _.uniqueId('view');
-    _.extend(this, _.pick(options, viewOptions));
-    this._ensureElement();
-    this.initialize.apply(this, arguments);
-};*/
+// _.extend(View.prototype, Events, {})
+// View.prototype扩展了Events对象，
+// Backbone.View实例，可以调用listenTo方法,
 
-//实例化时，会调用初始化方法，
-//this.initialize.apply(this, auguments);
-//实例化的实参传给initialize方法的形参
+// _.extend(Model.prototype, Events, {
+// Backbone.Model实例，调用Events对象方法
 
-
+//_.extend(Collection.prototype, Events, {
+//Backbone.Model实例，调用Events对象方法
 
 
 
