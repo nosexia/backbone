@@ -2,31 +2,26 @@ define([
     'underscore',
     'backbone'
 ],function(_, backbone){
-    var model = _.extend({}, backbone.Events);
-    var view = _.extend({}, backbone.Events);
-    var view1 = _.extend({}, backbone.Events);
+    var SampleView = function(){
 
-    view.listenTo(model, 'custom_event', function(){
-        console.log('view');
+    };
+
+    var SampleModel = function(){
+
+    };
+    var events = backbone.Events;
+
+    _.extend(SampleView.prototype, events);
+    _.extend(SampleModel.prototype, events);
+    var sampleView = new SampleView();
+    var sampleModel =new SampleModel();
+
+    sampleView.listenTo(sampleModel, 'custom_event', function(){
+        console.log('sampleView');
     });
 
-    view1.listenTo(model, 'custom_event', function(){
-        console.log('view1');
-    });
-
-
-    model.trigger('custom_event');
+    sampleModel.trigger('custom_event');
 });
 
-//总结
-//view视图，view1视图，监听model模型上custom_event事件
-//
-//
-//Backbone.Events就是事件实现的核心，它可以让对象拥有事件能力
-
-//listenTo: function(obj, name, callback)
-//使当前对象侦听obj对象的一个叫name的事件，当事件被触发后，回调callback
-
-
-//trigger: function(name)
-//当前对象触发name事件
+//自定义SampleView类，events事件方法扩展SampleView.prototype
+//自定义SampleModel类， events事件方法扩展SampleModel.prototype
