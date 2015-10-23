@@ -24,18 +24,11 @@ define([
     });
 
     myModel.set(person);
-
 });
 
-// _.extend(View.prototype, Events, {})
-// View.prototype扩展了Events对象，
-// Backbone.View实例，可以调用listenTo方法,
 
-// _.extend(Model.prototype, Events, {
-// Backbone.Model实例，调用Events对象方法
+//myModel.set(person) => this.trigger('change', this, options);
 
-//_.extend(Collection.prototype, Events, {
-//Backbone.Model实例，调用Events对象方法
 
 
 

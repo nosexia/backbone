@@ -396,7 +396,9 @@
     options || (options = {});
     this.cid = _.uniqueId(this.cidPrefix);
     this.attributes = {};
+    //定义this.collection 指向 options.collection
     if (options.collection) this.collection = options.collection;
+    
     if (options.parse) attrs = this.parse(attrs, options) || {};
     attrs = _.defaults({}, attrs, _.result(this, 'defaults'));
     this.set(attrs, options);
@@ -507,7 +509,6 @@
 
       // Update the `id`.
       this.id = this.get(this.idAttribute);
-
       // Trigger all relevant attribute changes.
       if (!silent) {
         if (changes.length) this._pending = options;
