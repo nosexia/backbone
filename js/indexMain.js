@@ -3,32 +3,29 @@ define([
     'underscore',
     'backbone'
 ],function($, _, backbone){
-    var person = {
-        name: 'nose',
-        age: 23
-    };
-    var MyModel = backbone.Model;
+    $('input').click(function(){
+        //路由中有中文情况，encodeURIComponent转义
+        window.location.hash = encodeURIComponent( '/name/夏振华' );
+    });
 
-    var MyView = backbone.View.extend({
-        initialize: function(options){
-            this.listenTo(this.model, 'change', this.render);            //用options.model替换this.model
+    var AppRouter = Backbone.Router.extend({
+        routes:{
+            '*other': 'defaultOper'
         },
-        render: function(){
-            console.log('渲染所有');
+        defaultOper: function(value){
+            console.log(decodeURIComponent(value));
         }
     });
 
-    var myModel = new MyModel();
-    var myView = new MyView({
-        model: myModel
-    });
+    var router = new AppRouter();
 
-    myModel.set(person);
+    //backbone.history.start();
 });
 
-
-//myModel.set(person) => this.trigger('change', this, options);
-
+//路由器第一步
+//自定义路由器类
+//实例化自定义路由器
+//启用路由功能backbone.history.start()
 
 
 

@@ -1327,6 +1327,7 @@
         if (this.id) attrs.id = _.result(this, 'id');
         if (this.className) attrs['class'] = _.result(this, 'className');
         this.setElement(this._createElement(_.result(this, 'tagName')));
+        //attrs.id = 'xxx';
         this._setAttributes(attrs);
       } else {
         this.setElement(_.result(this, 'el'));
