@@ -4,7 +4,6 @@ define([
     'backbone'
 ],function($, _, backbone){
     $('input').click(function(){
-        //路由中有中文情况，encodeURIComponent转义
         window.location.hash = encodeURIComponent( '/name/夏振华' );
     });
 
@@ -19,13 +18,11 @@ define([
 
     var router = new AppRouter();
 
-    //backbone.history.start();
+
+    backbone.history.start();
 });
 
-//路由器第一步
-//自定义路由器类
-//实例化自定义路由器
-//启用路由功能backbone.history.start()
+
 
 
 
