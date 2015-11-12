@@ -1,12 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Backbone路由</title>
-</head>
-<body class="j-body">
-    <input type="button" value="按钮">
-</body>
-<script type="text/javascript" src="js/config.js"></script>
-<script type="text/javascript" src="js/require.js" data-main="indexMain"></script>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Building a router</title>
+    </head>
+    <body>
+     <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#/page1">Page 1</a></li>
+        <li><a href="#/page2">Page 2</a></li>
+      </ul>
+      <div id="view"></div>
+
+
+    </body>
+
+    <script>
+        var routes = {};
+        // The route registering function:
+        // 路由配置函数
+        function route (path, templateId, controller) {
+          routes[path] = {templateId: templateId, controller: controller};
+        }
+
+        // 配置路由路径、模版id、控制器
+        route('/', 'home');
+        route('/page1', 'template1');
+        route('/page2', 'template2'); 
+        
+        var el = null;
+        // 路由器
+        function router () {
+            el = el || document.getElementById('view');
+            var url = location.hash.slice(1) || '/';
+            var route = routes[url];
+            if (el && route.templateId) {
+               el.innerHTML = route.templateId;
+            }
+        }
+        // 监听hash值变化
+        window.addEventListener('hashchange', router);
+
+        // 监听load
+        window.addEventListener('load', router);     
+    </script>
 </html>
+
+
+
+

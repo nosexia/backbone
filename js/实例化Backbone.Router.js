@@ -20,7 +20,11 @@
     },
 
 
-    // backbone实例化时，也会执行初始化函数
+    //点击后退或者前进的时候同样会触发路由的事件
     this.initialize.apply(this, arguments)
+
+
+
+    
 
 

@@ -1474,6 +1474,7 @@
         name = '';
       }
       if (!callback) callback = this[name];
+      console.log(callback);
       var router = this;
       Backbone.history.route(route, function(fragment) {
         var args = router._extractParameters(route, fragment);
