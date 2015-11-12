@@ -12,15 +12,14 @@ define([
             '*other': 'defaultOper'
         },
         defaultOper: function(value){
-            console.log(decodeURIComponent(value));
+            console.log(value);
+            //console.log(decodeURIComponent(value));
         }
     });
 
     // 
     var router = new AppRouter();
-
-
-    backbone.history.start();
+    Backbone.history.start();
 });
 
 
