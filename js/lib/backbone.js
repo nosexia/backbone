@@ -919,7 +919,6 @@
         routes.unshift([route, this.routes[route]]);
       }
       for (var i = 0, l = routes.length; i < l; i++) {
-        debugger;
         this.route(routes[i][0], routes[i][1], this[routes[i][1]]);
       }
     },
