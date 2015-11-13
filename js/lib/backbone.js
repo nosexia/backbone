@@ -1080,7 +1080,7 @@
     // returns `false`.
     loadUrl: function(fragmentOverride) {
       var fragment = this.fragment = this.getFragment(fragmentOverride);
-      var matched = _.any(this.handlers, function(handler) {
+      var matched = _.any(this.handlers, function(handler) {        
         if (handler.route.test(fragment)) {
           handler.callback(fragment);
           return true;

@@ -7,23 +7,25 @@ define([
 
     var AppRouter = Backbone.Router.extend({
         routes:{
-            ':cate/:code': 'hsOper',
-            ':cate/:code': 'hkOper'
+            ':cate/:code': 'assignOper',
+            '*other': 'defaultOper'        
         },
-        hsOper: function(cate, code){
-            console.log(cate + "||" + code);
+        defaultOper: function(value){
+            console.log(value);
         },
 
-        hkOper: function(cate, code){
+        assignOper: function(cate, code){
             console.log(cate + '||' + code);
         }
     });
 
-    // 
+    
     var router = new AppRouter();
     //监听,启动路由变化
     Backbone.history.start();
 });
+
+
 
 
 
