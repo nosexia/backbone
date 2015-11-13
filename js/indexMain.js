@@ -7,10 +7,15 @@ define([
 
     var AppRouter = Backbone.Router.extend({
         routes:{
-            '*other': 'defaultOper'
+            'hs*other': 'hsOper',
+            'hk*other': 'hkOper'
         },
-        defaultOper: function(value){
-            console.log(decodeURIComponent(value));
+        hsOper: function(value){
+            console.log(value);
+        },
+
+        hkOper: function(value){
+            console.log(value);
         }
     });
 
