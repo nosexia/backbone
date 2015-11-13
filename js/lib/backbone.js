@@ -919,6 +919,7 @@
         routes.unshift([route, this.routes[route]]);
       }
       for (var i = 0, l = routes.length; i < l; i++) {
+        debugger;
         this.route(routes[i][0], routes[i][1], this[routes[i][1]]);
       }
     },
@@ -998,9 +999,13 @@
 
       // Figure out the initial configuration. Do we need an iframe?
       // Is pushState desired ... is it available?
+      // this.options = {root: '/'}
       this.options          = _.extend({}, {root: '/'}, this.options, options);
+      // this._wantHashChange = true;
       this._wantsHashChange = this.options.hashChange !== false;
+      // this._wantPushState = false;
       this._wantsPushState  = !!this.options.pushState;
+      // false;
       this._hasPushState    = !!(this.options.pushState && window.history && window.history.pushState);
       var fragment          = this.getFragment();
       var docMode           = document.documentMode;

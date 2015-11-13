@@ -19,7 +19,8 @@ define([
 
     // 
     var router = new AppRouter();
-    Backbone.history.start();
+    //监听,启动路由变化
+    //Backbone.history.start();
 });
 
 

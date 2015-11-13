@@ -31,7 +31,7 @@
     },
 
 
-    // 将一个路由规则绑定给一个监听事件, 当URL片段匹配该规则时, 会自动调用触发该事件
+    // 匹配的route,callback,做为一个对象，unshift到this.handlers
     route: function(route, name, callback) {
         Backbone.history || (Backbone.history = new History);
         //route为正则 /^(.*?)$/
@@ -50,6 +50,8 @@
 
         return this;
     },
+
+
 
 
 //Backbone.history.route
