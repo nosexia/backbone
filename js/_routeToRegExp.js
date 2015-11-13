@@ -1,5 +1,8 @@
 //分析不同的route字符转化后，对应正则
-//'*other' - > /^(.*?)$/          必须有'*'字符，  
+//':hk/000001'  对应正则    /^([^\/]+)/000001$/  
+//':hk/:000001' 对应正则    /^(([^\/]+)/([^\/]+))$/;
+//
+//':hk/:000001'.exec(fragment).slice(1);
 
 
 
@@ -20,3 +23,16 @@ _routeToRegExp: function(route) {
                .replace(splatParam, '(.*?)');
   return new RegExp('^' + route + '$');
 },
+
+
+//一个数组中包含两个参数
+
+// Given a route, and a URL fragment that it matches, return the array of
+// extracted parameters.
+
+// route为 /^([^\/]+)\/([^\/]+)$/
+// fragment ":hs/:000001"
+_extractParameters: function(route, fragment) {
+  debugger;
+  return route.exec(fragment).slice(1);             //[':hk', ':000001']
+}
