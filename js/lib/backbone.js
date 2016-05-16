@@ -91,18 +91,27 @@
 
       var calls, event, node, tail, list;
       if (!callback) return this;
+      // events = ['change']
       events = events.split(eventSplitter);
+      // calls = this._callbacks = {};
       calls = this._callbacks || (this._callbacks = {});
 
       // Create an immutable callback list, allowing traversal during
       // modification.  The tail is an empty object that will always be used
       // as the next node.
+      // 
       while (event = events.shift()) {
+        // list = undefined
         list = calls[event];
+        // node = {}
         node = list ? list.tail : {};
+        // node.next = {};
         node.next = tail = {};
+        // 上下文是对于的实例化的view
         node.context = context;
+        // node.callback = callback
         node.callback = callback;
+        // calls['change'] = {tail : tail, next :node}
         calls[event] = {tail: tail, next: list ? list.next : node};
       }
 
@@ -149,17 +158,22 @@
     // receive the true name of the event as the first argument).
     trigger: function(events) {
       var event, node, calls, tail, args, all, rest;
+      // 在监听的时候，会出现this._backbacks = {'change' : tail: tail, next: node}
       if (!(calls = this._callbacks)) return this;
       all = calls.all;
+      // events = 'change:name'
       events = events.split(eventSplitter);
+      // rest = [this, 'nose'];
       rest = slice.call(arguments, 1);
 
       // For each event, walk through the linked list of callbacks twice,
       // first to trigger the event, then to trigger any `"all"` callbacks.
       while (event = events.shift()) {
         if (node = calls[event]) {
+        // node.tail是一个空对象
           tail = node.tail;
           while ((node = node.next) !== tail) {
+            // node.callback为监听后的回调函数
             node.callback.apply(node.context || this, rest);
           }
         }
@@ -279,29 +293,37 @@
       if (!this._validate(attrs, options)) return false;
 
       // Check for changes of `id`.
+      // model.prototype中idAttribute的默认值是'id', attrs对象中存在属性{'id': 3}
+      // this.id为attr中的attr.id
       if (this.idAttribute in attrs) this.id = attrs[this.idAttribute];
-
+      // 
       var changes = options.changes = {};
+      // attributes为new Model中传入参数
       var now = this.attributes;
+      // 暂时不分析 @todo
       var escaped = this._escapedAttributes;
       var prev = this._previousAttributes || {};
 
       // For each `set` attribute...
       for (attr in attrs) {
+        // val = 'nose'
         val = attrs[attr];
 
         // If the new and current value differ, record the change.
         if (!_.isEqual(now[attr], val) || (options.unset && _.has(now, attr))) {
           delete escaped[attr];
+          // change.name = true
           (options.silent ? this._silent : changes)[attr] = true;
         }
 
         // Update or delete the current value.
+        // now = {name : 'nose'}
         options.unset ? delete now[attr] : now[attr] = val;
 
         // If the new and previous value differ, record the change.  If not,
         // then remove changes for this attribute.
         if (!_.isEqual(prev[attr], val) || (_.has(now, attr) != _.has(prev, attr))) {
+        //  this.changed['name'] = nose 
           this.changed[attr] = val;
           if (!options.silent) this._pending[attr] = true;
         } else {
@@ -311,6 +333,7 @@
       }
 
       // Fire the `"change"` events.
+      // this.change({'change' :{'name' : true} })
       if (!options.silent) this.change(options);
       return this;
     },
@@ -461,15 +484,18 @@
     change: function(options) {
       options || (options = {});
       var changing = this._changing;
+      // 数据模型正在改变，需要锁定
       this._changing = true;
 
       // Silent changes become pending changes.
       for (var attr in this._silent) this._pending[attr] = true;
 
       // Silent changes are triggered.
+      // changes = {name : 'nose'}
       var changes = _.extend({}, options.changes, this._silent);
       this._silent = {};
       for (var attr in changes) {
+        // 触发trigger事件
         this.trigger('change:' + attr, this, this.get(attr), options);
       }
       if (changing) return this;
@@ -477,6 +503,7 @@
       // Continue firing `"change"` events while there are pending changes.
       while (!_.isEmpty(this._pending)) {
         this._pending = {};
+        // 触发change事件
         this.trigger('change', this, options);
         // Pending and silent changes still remain.
         for (var attr in this.changed) {

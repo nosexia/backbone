@@ -1,29 +1,37 @@
 define([
     'jquery',
     'underscore',
-    'backbone'
-],function($, _, backbone){
-
-
-    var AppRouter = Backbone.Router.extend({
-        routes:{
-            ':cate/:code': 'assignOper',
-            '*other': 'defaultOper'        
+    'Backbone'
+],function($, _, Backbone){
+    var MyView = Backbone.View.extend({
+        initialize: function(){
+            this.model.on('change', this.render, this.model);
         },
-        defaultOper: function(value){
-            console.log(value);
-        },
-
-        assignOper: function(cate, code){
-            console.log(cate + '||' + code);
+        render: function(){
+            console.log(this.toJSON());
         }
     });
 
-    
-    var router = new AppRouter();
-    //监听,启动路由变化
-    Backbone.history.start();
+    var obj = {name: 'nose'};
+
+    var MyModel = Backbone.Model.extend({
+        fetch: function(){
+            this.set(obj);
+        }
+    });
+
+    var myModel = new MyModel();
+    var myView = new MyView({
+        model: myModel
+    });
+
+    myModel.fetch();
+
 });
+
+
+
+//模拟监听者模式
 
 
 

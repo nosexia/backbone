@@ -3,9 +3,14 @@ var require = {
     paths: {
         'jquery': 'lib/jquery',
         'underscore': 'lib/underscore',
-        'backbone': 'lib/backbone'
+        'Backbone': 'lib/Backbone',
     },
-    shim:{
-        'backbone': ['jquery', 'underscore']
+    // shim:{
+    //     'backbone': ['jquery', 'underscore']
+    // },
+    shim : {
+        Backbone : {
+            exports : 'Backbone'
+        }
     }
 };
